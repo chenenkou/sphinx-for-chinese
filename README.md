@@ -7,28 +7,35 @@ sphinx-for-chinese项目起始于2008年12月份，在2009年4月份在Google Co
 ## 安装
 
 解压 
+```
 $ tar -xvf sphinx-for-chinese-2.0.2-dev-r2894.tar.gz
 $ cd sphinx-for-chinese-2.0.2-dev-r2894
+```
 
 编译（假设安装到/usr/local/sphinx-for-chinese目录，下文同）
+```
 $ ./configure --prefix=/usr/local/sphinx-for-chinese
---prefix 指定安装路径
---with-mysql 编译mysql支持
---with-pgsql 编译pgsql支持
+ # --prefix 指定安装路径
+ # --with-mysql 编译mysql支持
+ # --with-pgsql 编译pgsql支持
 $ make
 $ make install
+```
 
 配置中文支持
-
+```
 $ tar -xvf xdict_1.1.tar.gz
 $ /usr/local/sphinx-for-chinese/bin/mkdict xdict_1.1.txt xdict #从xdict_1.1.txt生成xdict文件，xdict_1.1.txt文件可以根据需要进行修改
 $ cp xdict /usr/local/sphinx-for-chinese/etc/
+```
 
 修改sphinx.conf索引配置文件
 
 在索引配置项中添加以下两项
+```
 charset_type = utf-8
 chinese_dictionary = /usr/local/sphinx-for-chinese/etc/xdict
+```
 
 至此，完成中文支持配置。
 
@@ -37,7 +44,7 @@ chinese_dictionary = /usr/local/sphinx-for-chinese/etc/xdict
 
 sphinx-for-chinese只支持UTF-8编码，数据源输出数据时请做转换，使用MySQL时一般需要添加"SET NMAES utf8"语句。 使用xmlpipe时，需要注意两点：一个是XML中尽可能使用CDATA标签，以避免特殊字符影响xml解析；另一个是sphinx配置中启用xmlpipe_fixup_utf8=1选项，以尽可能的避免因非 法UTF-8字符串引起解析错误。
 若需要检查中文分词支持是否启用，请使用search命令，例子如下：
-
+```
 ./search -c ../etc/sphinx.conf 分享身边的精彩
 sphinx-for-chinese 2.1.0-dev (r3006)
 Copyright (c) 2008-2011, sphinx-search.com
@@ -50,6 +57,7 @@ words:
 2. '身边': 26 documents, 38 hits
 3. '的': 5344 documents, 178743 hits
 4. '精彩': 5 documents, 6 hits
+```
 
 可以看到words中列出了各个中文单词，说明中文分词启用成功。
 
